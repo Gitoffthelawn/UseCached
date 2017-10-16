@@ -26,6 +26,9 @@ parseSourceUrl = function(url) {
 
 //init page icon behaviour
 function initializePageAction(tab) {
+  if (!tab.url.startsWith("http")) {
+    return;
+  }
   if (isGoogleCached(tab.url)) {
     chrome.pageAction.setIcon({tabId: tab.id, path: "icons/on.svg"});
     chrome.pageAction.setTitle({tabId: tab.id, title: TITLE_REMOVE});
