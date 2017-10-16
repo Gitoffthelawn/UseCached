@@ -54,8 +54,7 @@ chrome.tabs.onUpdated.addListener((id, changeInfo, tab) => {
 
 // tab icon click event
 chrome.pageAction.onClicked.addListener(function(tab) {
-  initializePageAction(tab);
-
+  
   if (isGoogleCached(tab.url)) {
     chrome.tabs.update(tab.id, {url: parseSourceUrl(tab.url)});
   } else {
