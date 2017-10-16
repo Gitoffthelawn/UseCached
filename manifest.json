@@ -3,7 +3,7 @@
   "description": "switch webpage to google webcache.",
   "manifest_version": 2,
   "name": "UseCached",
-  "version": "1.0",
+  "version": "1.1",
   "homepage_url": "https://github.com/fatzombi/UseCached",
 
   "icons": {
