@@ -1,7 +1,21 @@
 const TITLE_APPLY = "Use Cached";
 const TITLE_REMOVE = "Back to Source";
+const TITLE_FAILED = "Cached page dosen't exist!"
 const CACHE_SERVICE_URL = "https://webcache.googleusercontent.com/search?q=cache:";
 const CACHE_SERVICE_HOST = "webcache.googleusercontent.com";
+
+// https://stackoverflow.com/a/333657/6431190
+function UrlExists(url, callback)
+{
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url);
+    http.onreadystatechange = function() {
+        if (this.readyState == this.DONE) {
+            callback(this.status != 404);
+        }
+    };
+    http.send();
+}
 
 // checks if google cahced-page or not
 isGoogleCached = function(url) {
@@ -54,10 +68,20 @@ chrome.tabs.onUpdated.addListener((id, changeInfo, tab) => {
 
 // tab icon click event
 chrome.pageAction.onClicked.addListener(function(tab) {
-  
+
   if (isGoogleCached(tab.url)) {
     chrome.tabs.update(tab.id, {url: parseSourceUrl(tab.url)});
   } else {
-    chrome.tabs.update(tab.id, {url: genCachedUrl(tab.url)});
+    cachedUrl = genCachedUrl(tab.url);
+    UrlExists(cachedUrl, function(isError) {
+      if (isError) {
+        chrome.pageAction.setIcon({tabId: tab.id, path: "icons/fail.svg"});
+        chrome.pageAction.setTitle({tabId: tab.id, title: TITLE_FAILED});
+      } else {
+        chrome.tabs.update(tab.id, {url: genCachedUrl(tab.url)});  
+      }
+    });
   }
+
+
 });
