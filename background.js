@@ -1,7 +1,7 @@
 const TITLE_APPLY = "Use Cached";
 const TITLE_REMOVE = "Back to Source";
 const TITLE_FAILED = "Cached page dosen't exist!"
-const CACHE_SERVICE_URL = "https://webcache.googleusercontent.com/search?q=cache:";
+const CACHE_SERVICE_URL = "//webcache.googleusercontent.com/search?q=cache:";
 const CACHE_SERVICE_HOST = "webcache.googleusercontent.com";
 
 // https://stackoverflow.com/a/333657/6431190
@@ -73,12 +73,12 @@ chrome.pageAction.onClicked.addListener(function(tab) {
     chrome.tabs.update(tab.id, {url: parseSourceUrl(tab.url)});
   } else {
     cachedUrl = genCachedUrl(tab.url);
-    UrlExists(cachedUrl, function(isError) {
-      if (isError) {
+    UrlExists(cachedUrl, function(hasCache) {
+      if (hasCache) {
+        chrome.tabs.update(tab.id, {url: genCachedUrl(tab.url)});
+      } else {
         chrome.pageAction.setIcon({tabId: tab.id, path: "icons/fail.svg"});
         chrome.pageAction.setTitle({tabId: tab.id, title: TITLE_FAILED});
-      } else {
-        chrome.tabs.update(tab.id, {url: genCachedUrl(tab.url)});  
       }
     });
   }
