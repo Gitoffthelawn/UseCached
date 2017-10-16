@@ -1,7 +1,7 @@
 const TITLE_APPLY = "Use Cached";
 const TITLE_REMOVE = "Back to Source";
 const TITLE_FAILED = "Cached page dosen't exist!"
-const CACHE_SERVICE_URL = "//webcache.googleusercontent.com/search?q=cache:";
+const CACHE_SERVICE_URL = "http://webcache.googleusercontent.com/search?q=cache:";
 const CACHE_SERVICE_HOST = "webcache.googleusercontent.com";
 
 // https://stackoverflow.com/a/333657/6431190
