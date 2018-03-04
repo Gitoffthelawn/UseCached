@@ -1,4 +1,4 @@
-const TITLE_APPLY = "Use Cached";
+const TITLE_APPLY = "Use Google's Web Cache";
 const TITLE_REMOVE = "Back to Source";
 const TITLE_FAILED = "Cached page dosen't exist!"
 const CACHE_SERVICE_URL = "http://webcache.googleusercontent.com/search?q=cache:";
